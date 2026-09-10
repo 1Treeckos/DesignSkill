@@ -1,0 +1,4 @@
+# Shell scripts must stay LF or they break when cloned onto Linux/macOS.
+*.sh text eol=lf
+*.mjs text eol=lf
+*.md text
