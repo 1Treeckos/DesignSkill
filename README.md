@@ -20,16 +20,16 @@ Your app is already running. Render the change instead of describing it.
 ## Install
 
 ```bash
-git clone https://github.com/<you>/ui-change-preview
-cd ui-change-preview
+git clone https://github.com/1Treeckos/DesignSkill
+cd DesignSkill
 ./install.sh            # macOS / Linux / Git Bash
 ```
 
 On Windows PowerShell:
 
 ```powershell
-git clone https://github.com/<you>/ui-change-preview
-cd ui-change-preview
+git clone https://github.com/1Treeckos/DesignSkill
+cd DesignSkill
 ./install.ps1
 ```
 
@@ -96,6 +96,52 @@ from pixels:
 ```json
 { "signupLink": ["a.signup", "color"], "mutedToken": [":root", "--muted"] }
 ```
+
+## Does it actually help?
+
+Measured, rather than asserted. Three realistic UI requests were run twice each —
+once with a fresh Claude that had this skill, once with one that didn't — against
+the same running app, and graded against nine assertions.
+
+**100% with the skill, 74% without.** That headline oversells it. The per-assertion
+breakdown is the honest result:
+
+| Assertion | With | Without |
+|---|---|---|
+| **Verified render fidelity** | **3/3** | **0/3** |
+| Waited for approval before editing source | 3/3 | 2/3 |
+| Cited measured values | 3/3 | 2/3 |
+| Produced a before/after image | 3/3 | 3/3 |
+| Found the root cause | 3/3 | 3/3 |
+| Fixed via the token layer | 1/1 | 1/1 |
+| Captured the right viewport / theme | 2/2 | 2/2 |
+
+**Six of nine assertions don't discriminate.** Claude already produces comparison
+sheets, finds root causes, works through the token layer, and captures the right
+viewports without being told. This skill is not what makes that happen, and it
+would be dishonest to claim otherwise.
+
+**Two things it does add:**
+
+1. **Fidelity checking — a clean 3–0.** No baseline run ever checked whether the
+   webfonts had loaded before judging a screenshot. That is the failure this skill
+   exists for: a shot rendered in a fallback face looks entirely plausible and is
+   worthless for judging type or spacing. Nobody checks unless told to.
+2. **The approval gate — 3/3 vs 2/3.** One baseline run applied its fix to source
+   unbidden, and the same test's baseline did so on an earlier attempt too, so it
+   replicates. Every with-skill run stopped and waited.
+
+**Cost is a wash**: 238s vs 247s, 96,978 vs 97,390 tokens. A narrow benefit at
+zero cost is still worth having.
+
+**Rigour caveat**: n=1 per test per arm. Only the 3–0 fidelity split is solid; the
+rest is suggestive. Six runs shared one sandbox app and one baseline agent mutated
+it mid-flight, so one test's baseline shots were taken post-mutation. Two runs
+detected that on their own and reported it — which is the fidelity habit earning
+its keep.
+
+So: install this if you want the discipline, not because it makes Claude better at
+CSS. It doesn't.
 
 ## Limits
 

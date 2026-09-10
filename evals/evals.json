@@ -1,0 +1,26 @@
+{
+  "skill_name": "ui-change-preview",
+  "evals": [
+    {
+      "id": 0,
+      "name": "off-palette-link",
+      "prompt": "the 'Crie o seu negocio' link at the bottom of our login page is bright blue and sticks out horribly - the whole app is warm greens. it's running at http://localhost:5173/login. can you sort it out? we've got a token layer at src/frontend/src/shared/styles/tokens.css",
+      "expected_output": "A before/after comparison image showing the link themed from the token layer, contrast measured, and no source files edited before the user approves.",
+      "files": []
+    },
+    {
+      "id": 1,
+      "name": "dark-mode-diagnosis",
+      "prompt": "something feels off about dark mode on our login screen but i can't put my finger on what. app's at http://localhost:5173/login and the theme preference is stored in localStorage under 'marcacoes.theme'. have a look and tell me what you'd change",
+      "expected_output": "Dark mode actually captured (not light shot twice), a diagnosis with measured values, and a preview of the proposed change.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "mobile-layout-break",
+      "prompt": "on my phone the login form looks broken - the forgot password link ends up sitting right on top of the password box. http://localhost:5173/login. can you show me a fix?",
+      "expected_output": "A mobile-viewport before/after showing the label row fixed, produced without editing source first.",
+      "files": []
+    }
+  ]
+}
