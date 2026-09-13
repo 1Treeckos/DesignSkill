@@ -19,19 +19,41 @@ Your app is already running. Render the change instead of describing it.
 
 ## Install
 
+One command, no clone, same on Windows, macOS and Linux:
+
+```bash
+npx github:1Treeckos/DesignSkill
+```
+
+Re-run it any time to update. Other flags:
+
+```bash
+npx github:1Treeckos/DesignSkill --uninstall
+npx github:1Treeckos/DesignSkill --where
+```
+
+<details>
+<summary>Other ways to install</summary>
+
+If the package is published to npm, the short form works:
+
+```bash
+npx designskill
+```
+
+From a clone, if you want to read the source first:
+
 ```bash
 git clone https://github.com/1Treeckos/DesignSkill
 cd DesignSkill
-./install.sh            # macOS / Linux / Git Bash
+node bin/install.mjs
 ```
 
-On Windows PowerShell:
+`install.sh` and `install.ps1` still work from a clone, but `bin/install.mjs` is
+the one that's maintained — it's a single Node code path rather than a shell pair
+that drifts apart.
 
-```powershell
-git clone https://github.com/1Treeckos/DesignSkill
-cd DesignSkill
-./install.ps1
-```
+</details>
 
 Installs to `~/.claude/skills/ui-change-preview/`. Restart Claude Code (or reload
 the window) to pick it up. Pass `--force` to overwrite an existing install.
@@ -79,6 +101,7 @@ Run any script with no arguments for its flags.
 | `scripts/shoot.mjs` | Screenshot with or without injected CSS, plus a fidelity report |
 | `scripts/compose.mjs` | Before/after comparison sheet |
 | `scripts/contrast.mjs` | WCAG ratios; `--find` walks a failing colour until it passes |
+| `bin/install.mjs` | The installer `npx` runs |
 
 ## The fidelity report
 

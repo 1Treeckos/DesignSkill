@@ -1,0 +1,43 @@
+{
+  "name": "designskill",
+  "version": "1.0.0",
+  "description": "Claude Code skill: preview a UI change against the running app before any source file is edited",
+  "type": "module",
+  "bin": {
+    "designskill": "bin/install.mjs"
+  },
+  "files": [
+    "bin/",
+    "scripts/",
+    "SKILL.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "install-skill": "node bin/install.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "skill",
+    "ui",
+    "design",
+    "screenshot",
+    "playwright",
+    "visual-regression",
+    "before-after"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1Treeckos/DesignSkill.git"
+  },
+  "license": "MIT",
+  "peerDependenciesMeta": {
+    "playwright": {
+      "optional": true
+    }
+  }
+}
