@@ -55,8 +55,13 @@ that drifts apart.
 
 </details>
 
-Installs to `~/.claude/skills/ui-change-preview/`. Restart Claude Code (or reload
-the window) to pick it up. Pass `--force` to overwrite an existing install.
+Installs to `~/.claude/skills/ui-change-preview/` for Claude Code and
+`~/.agents/skills/ui-change-preview/` for Codex — same `SKILL.md`, the two agents
+just look in different places. Restart Claude Code or Codex (or reload the
+window) to pick it up. Pass `--force` to overwrite an existing install.
+
+In Codex, invoke it with `$ui-change-preview`, or let Codex pick it up from the
+description.
 
 Requires Node 18+ and Playwright with Chromium:
 
