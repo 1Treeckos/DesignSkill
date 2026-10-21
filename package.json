@@ -1,7 +1,7 @@
 {
   "name": "designskill",
   "version": "1.0.0",
-  "description": "Claude Code skill: preview a UI change against the running app before any source file is edited",
+  "description": "Claude Code and Codex skills: brief a UI look from chosen references, check it against the default-AI-UI fingerprints, and preview a change against the running app before any source file is edited",
   "type": "module",
   "bin": {
     "designskill": "bin/install.mjs"
@@ -9,7 +9,7 @@
   "files": [
     "bin/",
     "scripts/",
-    "SKILL.md",
+    "skills/",
     "README.md",
     "LICENSE"
   ],

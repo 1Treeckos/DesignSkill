@@ -1,11 +1,19 @@
-# ui-change-preview
+# DesignSkill
 
-A [Claude Code](https://claude.com/claude-code) skill that shows a UI change
-**before** it's made.
+Two skills for [Claude Code](https://claude.com/claude-code) and
+[Codex](https://developers.openai.com/codex) that put a person's judgement back
+into UI work.
 
-It screenshots your running app, injects the proposed CSS at runtime,
-re-screenshots, and builds a side-by-side before/after sheet — so a visual change
-gets reviewed and approved before any source file is touched.
+**`design-brief`** — decide how something should look *before* building it, from
+references a human picked, and keep the result off the default. Measures the
+references into numbers, writes `.agents/design-brief.md`, then
+`slop-check.mjs` fails the build when the UI drifts back to the median look
+(Inter, one radius everywhere, indigo accent, a 4-up stat-tile row).
+
+**`ui-change-preview`** — show a UI change *before* it's made. Screenshots your
+running app, injects the proposed CSS at runtime, re-screenshots, and builds a
+side-by-side before/after sheet, so a visual change gets reviewed and approved
+before any source file is touched.
 
 Nothing is written to disk until a person has seen the after-shot and said yes.
 
@@ -49,19 +57,12 @@ cd DesignSkill
 node bin/install.mjs
 ```
 
-`install.sh` and `install.ps1` still work from a clone, but `bin/install.mjs` is
-the one that's maintained — it's a single Node code path rather than a shell pair
-that drifts apart.
-
 </details>
 
-Installs to `~/.claude/skills/ui-change-preview/` for Claude Code and
-`~/.agents/skills/ui-change-preview/` for Codex — same `SKILL.md`, the two agents
-just look in different places. Restart Claude Code or Codex (or reload the
-window) to pick it up. Pass `--force` to overwrite an existing install.
-
-In Codex, invoke it with `$ui-change-preview`, or let Codex pick it up from the
-description.
+Installs both skills to `~/.claude/skills/` for Claude Code and
+`~/.agents/skills/` for Codex — same `SKILL.md` format, the two agents just look
+in different places. Restart Claude Code or Codex (or reload the window) to pick
+them up. `--where` prints the paths, `--force` overwrites, `--uninstall` removes.
 
 Requires Node 18+ and Playwright with Chromium:
 
@@ -74,9 +75,14 @@ search the project, `NODE_PATH`, and the global npm root.
 
 ## Use
 
-Once installed it triggers on its own for requests like "polish this login page",
-"our dark mode looks off", or "show me what that would look like first". You can
-also invoke it by name.
+Once installed they trigger on their own. `design-brief` picks up "design a
+dashboard", "make this look less generic", "it looks like every other AI app".
+`ui-change-preview` picks up "polish this login page", "our dark mode looks off",
+"show me what that would look like first". You can also invoke either by name —
+in Codex, `$design-brief` or `$ui-change-preview`.
+
+The intended order: brief the look, build it, check it hasn't drifted back to the
+default, then preview the specific change before it lands.
 
 The scripts are usable standalone:
 
@@ -94,6 +100,12 @@ node scripts/compose.mjs --out comparison.png \
 # contrast maths
 node scripts/contrast.mjs "#0d6efd on #121a18"
 node scripts/contrast.mjs --find "#6b7280" --on "#f7f4f0,#ffffff"
+
+# measure a rendered page against the default-look fingerprints
+node scripts/slop-check.mjs --url http://localhost:5173/dashboard --brief .agents/design-brief.md
+
+# check the rules themselves, no browser needed
+node scripts/slop-check.mjs --self-test
 ```
 
 Run any script with no arguments for its flags.
@@ -102,7 +114,9 @@ Run any script with no arguments for its flags.
 
 | File | Does |
 |---|---|
-| `SKILL.md` | The workflow Claude follows |
+| `skills/design-brief/SKILL.md` | Reference -> measured brief -> check workflow |
+| `skills/ui-change-preview/SKILL.md` | Before/after preview workflow |
+| `scripts/slop-check.mjs` | Measures 8 default-look fingerprints; exits 3 on findings |
 | `scripts/shoot.mjs` | Screenshot with or without injected CSS, plus a fidelity report |
 | `scripts/compose.mjs` | Before/after comparison sheet |
 | `scripts/contrast.mjs` | WCAG ratios; `--find` walks a failing colour until it passes |
